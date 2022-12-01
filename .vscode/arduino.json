@@ -1,5 +1,5 @@
 {
     "sketch": "MoterController/MoterController.ino",
     "board": "arduino:avr:uno",
-    "port": "/dev/tty.usbmodem1114201"
+    "port": "/dev/tty.usbmodem11301"
 }

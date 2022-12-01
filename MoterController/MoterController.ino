@@ -3,7 +3,7 @@ const int controlPin2 = 3;
 const int enablePin = 9;
 
 int motorEnable = 0;
-int motorSpeed = 0;
+int motorSpeedRate = 50;
 int motorDirection = 1;
 
 void setup()
@@ -15,15 +15,15 @@ void setup()
 
 void loop()
 {
-    analogWrite(enablePin, 255);
+    analogWrite(enablePin, map(motorSpeedRate, 0, 100, 0, 254));
 
-    digitalWrite(controlPin1,HIGH);
-    digitalWrite(controlPin2,LOW);
+    digitalWrite(controlPin1, HIGH);
+    digitalWrite(controlPin2, LOW);
 
-    delay(3000);
+    // delay(3000);
 
-    digitalWrite(controlPin1,LOW);
-    digitalWrite(controlPin2,HIGH);
+    // digitalWrite(controlPin1, LOW);
+    // digitalWrite(controlPin2, HIGH);
 
-    delay(3000);
+    // delay(3000);
 }
