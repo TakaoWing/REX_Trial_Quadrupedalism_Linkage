@@ -1,15 +1,15 @@
-const int controlPin1 = 2;
-const int controlPin2 = 3;
-const int enablePin = 9;
+const int controlPin1 = 13;
+const int controlPin2 = 12;
+const int enablePin = 11;
 
 int motorEnable = 0;
 int motorSpeedRate = 80;
 int motorDirection = 1;
 
-const int switchPin = 13; // タクトスイッチのピン
-int switchState = 0;      // タクトスイッチの状態(State) 0:オフ，1:オン
-int old_switchState = 0;  // 一回前のタクトスイッチの状態
-bool isRunning = false;   // モーターを動かすかどうか false:動かさない, true:動かす
+const int switchPin = 2; // タクトスイッチのピン
+int switchState = 0;     // タクトスイッチの状態(State) 0:オフ，1:オン
+int old_switchState = 0; // 一回前のタクトスイッチの状態
+bool isRunning = false;  // モーターを動かすかどうか false:動かさない, true:動かす
 
 void setup()
 {
