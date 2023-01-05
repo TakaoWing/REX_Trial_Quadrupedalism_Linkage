@@ -1,5 +1,5 @@
 {
-    "sketch": "Misson04/Misson04.ino",
+    "sketch": "MoterController/MoterController.ino",
     "board": "arduino:avr:uno",
     "port": "/dev/tty.usbmodem1301"
 }
