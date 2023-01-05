@@ -3,8 +3,7 @@ const int controlPin1 = 13;
 const int controlPin2 = 12;
 const int enablePin = 11;
 // モーターのスピード設定
-int motorSpeedRate = 100;  // モーターのスピードの割合
-int moterSpeed;            // モーターのスピード
+int motorSpeed;  // モーターのスピード
 
 void setup() {
   // モーター制御PINの設定
@@ -12,8 +11,7 @@ void setup() {
   pinMode(controlPin2, OUTPUT);
   pinMode(enablePin, OUTPUT);
   // モーターのスピードを割合で指定
-  moterSpeed = map(motorSpeedRate, 0, 100, 0, 254);
-  analogWrite(enablePin, moterSpeed);
+  setMotorSpeed(100);
 }
 
 void loop() {
@@ -30,4 +28,10 @@ void setForward(bool isForward) {
     digitalWrite(controlPin1, LOW);
     digitalWrite(controlPin2, HIGH);
   }
+}
+
+// モーターのスピードを割合で指定
+void setMotorSpeed(int motorSpeedRate) {
+  motorSpeed = map(motorSpeedRate, 0, 100, 0, 254);
+  analogWrite(enablePin, motorSpeed);
 }
