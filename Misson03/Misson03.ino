@@ -10,11 +10,11 @@ void setup() {
   pinMode(controlPin1, OUTPUT);
   pinMode(controlPin2, OUTPUT);
   pinMode(enablePin, OUTPUT);
-  // モーターのスピードを割合で指定
-  setMotorSpeed(100);
 }
 
 void loop() {
+  // モーターのスピードを割合で指定
+  setMotorSpeed(100);
   // 直進
   setForward(true);
 }
