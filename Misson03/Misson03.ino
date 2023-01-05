@@ -5,8 +5,6 @@ const int enablePin = 11;
 // モーターのスピード設定
 int motorSpeedRate = 100;  // モーターのスピードの割合
 int moterSpeed;            // モーターのスピード
-// モーターの向き
-bool isForward = true;
 
 void setup() {
   // モーター制御PINの設定
@@ -19,7 +17,12 @@ void setup() {
 }
 
 void loop() {
-  // モーターの回転方向を指定
+  // 直進
+  setForward(true);
+}
+
+// モーターの進む方向を指定
+void setForward(bool isForward) {
   if (isForward) {
     digitalWrite(controlPin1, HIGH);
     digitalWrite(controlPin2, LOW);
