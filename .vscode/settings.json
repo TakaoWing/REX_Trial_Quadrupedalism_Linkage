@@ -3,4 +3,9 @@
     "[cpp]": {
         "editor.tabSize": 4,
     },
+    "pasteImage.defaultName": "${currentFileNameWithoutExt}",
+    "pasteImage.path": "${currentFileDir}",
+    "pasteImage.encodePath": "urlEncode",
+    "pasteImage.filePathConfirmInputBoxMode": "onlyName",
+    "pasteImage.insertPattern": ""
 }
