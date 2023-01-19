@@ -17,8 +17,6 @@ void setup() {
   pinMode(controlPin1, OUTPUT);
   pinMode(controlPin2, OUTPUT);
   pinMode(enablePin, OUTPUT);
-  // タクトスイッチPINの設定
-  pinMode(switchState, INPUT_PULLUP);
 }
 
 void loop() {
