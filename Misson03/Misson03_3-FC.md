@@ -20,10 +20,10 @@ flowchart TB
   node_12["controlPin1をLOWに指定"]
   node_15["controlPin2をLOWに指定"]
   node_16["controlPin2をHIGHに指定"]
-  node_7[["setMoterSeed関数"]]
-  node_14(["setMoterSpeed関数"])
+  node_7[["setmotorSeed関数"]]
+  node_14(["setmotorSpeed関数"])
   node_21["0~100を0~254へスケーリング"]
-  node_22["モーターのPINにmoterSpeedに指定"]
+  node_22["モーターのPINにmotorSpeedに指定"]
   node_23(["Return"])
   node_1 --> node_2
   node_3 --> node_4
