@@ -3,13 +3,13 @@ const int controlPin1 = 13;
 const int controlPin2 = 12;
 const int enablePin = 11;
 // モーターのスピード設定
-int motorSpeed;  // モーターのスピード
+int motor_speed;
 // タクトスイッチの設定
-const int switchPin = 2;  // タクトスイッチのピン
-int switchState = 0;  // タクトスイッチの状態(State) 0:オフ，1:オン
-int oldSitchState = 0;  // 一回前のタクトスイッチの状態
+const int switch_pin = 2;  // タクトスイッチのピン
+int switch_state = 0;  // タクトスイッチの状態(State) 0:オフ，1:オン
+int old_switch_state = 0;  // 一回前のタクトスイッチの状態
 // モーターを動かすのか
-bool isRunning = false;
+bool is_running = false;
 
 void setup() {
   // モーター制御PINの設定
@@ -17,29 +17,29 @@ void setup() {
   pinMode(controlPin2, OUTPUT);
   pinMode(enablePin, OUTPUT);
   // タクトスイッチPINの設定
-  pinMode(switchState, INPUT_PULLUP);
+  pinMode(switch_state, INPUT_PULLUP);
 }
 
 void loop() {
   // タクトスイッチの情報を取得
   // 押している時:LOW・離している時:HIGH
-  switchState = digitalRead(switchPin);
+  switch_state = digitalRead(switch_pin);
 
   // ボタン離した時「動作を切り替える」
-  if (oldSitchState == HIGH && switchState == LOW) {
+  if (old_switch_state == HIGH && switch_state == LOW) {
     // 動作を切り替える
-    isRunning = !isRunning;
+    is_running = !is_running;
     // チャタリング対策
     delay(10);
-  } else if (oldSitchState == LOW && switchState == HIGH) {
+  } else if (switch_state == HIGH) {
     // チャタリング対策
     delay(10);
   }
 
   // 前回のスイッチの状態を更新
-  oldSitchState = switchState;
+  old_switch_state = switch_state;
 
-  if (isRunning) {  // もし動かすなら
+  if (is_running) {  // もし動かすなら
     // スピード100%で前進する
     setMotorSpeed(100);
     setForward(true);
@@ -50,8 +50,8 @@ void loop() {
 }
 
 // モーターの進む方向を指定
-void setForward(bool isForward) {
-  if (isForward) {
+void setForward(bool is_forward) {
+  if (is_forward) {
     digitalWrite(controlPin1, HIGH);
     digitalWrite(controlPin2, LOW);
   } else {
@@ -61,7 +61,7 @@ void setForward(bool isForward) {
 }
 
 // モーターのスピードを割合で指定
-void setMotorSpeed(int motorSpeedRate) {
-  motorSpeed = map(motorSpeedRate, 0, 100, 0, 254);
-  analogWrite(enablePin, motorSpeed);
+void setMotorSpeed(int speed_rate) {
+  motor_speed = map(speed_rate, 0, 100, 0, 254);
+  analogWrite(enablePin, motor_speed);
 }
