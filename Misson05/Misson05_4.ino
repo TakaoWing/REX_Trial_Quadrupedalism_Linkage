@@ -22,8 +22,7 @@ void setup() {
   // enablePinを出力に設定
   pinMode(enablePin, OUTPUT);
   /* タクトスイッチPINの設定 */
-  // switch_pinを入力に設定
-  // プルアップ抵抗を使用
+  // switch_pinを入力(プルアップ抵抗を使用)に設定
   pinMode(switch_state, INPUT_PULLUP);
 }
 
@@ -76,12 +75,12 @@ void switchMotor(int speed_rate) {
   }
 }
 
-/* モーターのスピードを割合で指定 */
+/* スピードを割合で指定 */
 void setSpeed(int speed_rate) {
   // モーターの状態を切り替える
   switchMotor(speed_rate);
   // speed_rateを0~100から0~254に変換
   int mortor_speed = map(abs(speed_rate), 0, 100, 0, 254);
-  // モーターのスピードを設定
+  // スピードを設定
   analogWrite(enablePin, motor_speed);
 }
