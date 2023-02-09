@@ -30,50 +30,58 @@ void setup() {
 void loop() {
   // タクトスイッチの状態を読み込む
   int switch_state = digitalRead(switch_pin);
-  // スイッチの状態が変化した時
-  if (switch_state != previous_switch_state) {
-    // 設定した待ち時間以上経過している場合
-    long period_time = milliseconds() - last_switch_time;
-    if (period_time > switchDebounceTime) {
-      // スイッチが押された時
-      if (switch_state == LOW) {
-        setSpeed(100);
-      }
-      // スイッチが押されていない時
-      else {
-        setSpeed(0);
-      }
-      // 最後にタクトスイッチが押された時間を更新
-      last_switch_time = milliseconds();
-    }
+  // スイッチの状態が変化していない時
+  if (switch_state == previous_switch_state) {
+    // 何もしない
+    return;
   }
+  // 設定した待ち時間以上経過している場合
+  long period_time = milliseconds() - last_switch_time;
+  if (period_time <= switchDebounceTime) {
+    // 何もしない
+    return;
+  }
+  // スイッチが押された時
+  if (switch_state == LOW) {
+    // モーターを100%のスピードで回転
+    setSpeed(100);
+  }
+  // スイッチが押されていない時
+  else {
+    // モーターを停止
+    setSpeed(0);
+  }
+  // 最後にタクトスイッチが押された時間を更新
+  last_switch_time = milliseconds();
   // 以前のスイッチの状態を更新
   previous_switch_state = switch_state;
 }
 
-// モーターの状態を切り替える
-void switchMotor(int state) {
-  if (state == 0) {
+/* モーターの状態を切り替える */
+void switchMotor(int speed_rate) {
+  // speed_rateが0の時モーターを停止
+  if (speed_rate == 0) {
     digitalWrite(controlPin1, LOW);
     digitalWrite(controlPin2, LOW);
-  } else if (state == 1) {
+  }
+  // speed_rateが0より大きい時モーターを正転
+  else if (speed_rate > 0) {
     digitalWrite(controlPin1, HIGH);
     digitalWrite(controlPin2, LOW);
-  } else if (state == -1) {
+  }
+  // speed_rateが0より小さい時モーターを逆転
+  else if (speed_rate < 0) {
     digitalWrite(controlPin1, LOW);
     digitalWrite(controlPin2, HIGH);
   }
 }
 
-// モーターのスピードを割合で指定
+/* モーターのスピードを割合で指定 */
 void setSpeed(int speed_rate) {
-  if (speed_rate > 0) {
-    switchMotor(1);
-  } else if (speed_rate < 0) {
-    switchMotor(-1);
-  } else {
-    switchMotor(0);
-  }
+  // モーターの状態を切り替える
+  switchMotor(speed_rate);
+  // speed_rateを0~100から0~254に変換
   int mortor_speed = map(abs(speed_rate), 0, 100, 0, 254);
+  // モーターのスピードを設定
   analogWrite(enablePin, motor_speed);
 }
