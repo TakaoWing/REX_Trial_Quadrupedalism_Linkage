@@ -100,8 +100,8 @@ void switchMotor(int speed_rate) {
 void setSpeed(int speed_rate) {
   // モーターの状態を切り替える
   switchMotor(speed_rate);
-  // speed_rateを0~100から0~254に変換
-  int mortor_speed = map(abs(speed_rate), 0, 100, 0, 254);
+  // speed_rateを0~100から0~255に変換
+  int mortor_speed = map(abs(speed_rate), 0, 100, 0, 255);
   /* モーターのスピードを設定 */
   // enablePinにmotor_speedを設定
   analogWrite(enablePin, motor_speed);
@@ -146,3 +146,53 @@ void setSpeed(int speed_rate) {
 
 // このプログラムでは、millisecond関数を使って、
 // プログラムが起動してからの経過時間をミリ秒で取得している
+
+// analogWrite関数とは、PWM信号を出力する関数
+// analogWrite(ピン番号, デューティ比)
+// デューティ比は0~255の値を取る
+// 0の場合は、出力がLOWになる
+// 255の場合は、出力がHIGHになる
+
+// このプログラムでは、analogWrite関数を使って、
+// モーターのスピードを設定している
+
+// unsignedとは、符号なしのことである
+// つまり、unsigned int型とは、符号なしの16ビットの整数型である
+// つまり、0から65535までの値を表すことができる
+// マイナスの数値を表さない時に、unsignedを使う
+// マイナスの数値を入れると、正しい値が取得できなくなる
+// 例えば、unsigned int型の変数に-1を代入すると、65535になる
+// 例えば、unsinged long型の変数に-1を代入すると、4294967295になる
+
+// int型とは、16ビットの整数型である
+// つまり、-32768から32767までの値を表すことができる
+// 少数点以下の数値を表さない時に、intを使う
+// 少数を入れた場合、小数点以下は切り捨てられる
+
+// long型とは、32ビットの整数型である
+// つまり、-2147483648から2147483647までの値を表すことができる
+// int型よりも大きな値を表すことができる
+// ミリ秒単位で時間を表す場合は、long型を使う
+// 少数を入れた場合、小数点以下は切り捨てられる
+
+// ArduinoにおけるHIGHとLOWとは、電圧の高さを表す
+// HIGHは、5Vを表す
+// LOWは、0Vを表す
+// HIGHは3.3VでもOK
+
+// ArduinoにおけるHIGHとLOWは、定数である
+// つまり、HIGHとLOWは、変更できない
+// int型の変数にHIGHを代入すると、1が代入される
+// int型の変数にLOWを代入すると、0が代入される
+
+// HIGHTの型は、int型である
+// LOWの型は、int型である
+
+// Arudinoにおけるsetup関数とは、プログラムが起動した時に一度だけ実行される関数である
+// setup関数は、void型の関数である
+// つまり、setup関数は、戻り値を返さない関数である
+
+// Arudinoにおけるloop関数とは、プログラムが起動した時に繰り返し実行される関数である
+// loop関数は、予約語である
+// loop関数は、void型の関数である
+// つまり、loop関数は、戻り値を返さない関数である
