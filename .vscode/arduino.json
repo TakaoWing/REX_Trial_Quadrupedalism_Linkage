@@ -1,5 +1,5 @@
 {
-    "sketch": "Challenge01/Challenge.ino",
+    "sketch": "Test02/Misson05_5.ino",
     "board": "arduino:avr:uno",
     "port": "/dev/tty.usbmodem11301"
 }

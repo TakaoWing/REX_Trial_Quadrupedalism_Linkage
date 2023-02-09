@@ -23,7 +23,7 @@ int previous_switch_state = HIGH;
 // 最後にタクトスイッチが押された時間
 unsigned long last_switch_time = 0;
 // スイッチの状態が変化した時に待つ時間
-const int switchDebounceTime = 10;
+const int switchDebounceTime = 100;
 
 void setup() {
   /* モーター制御PINの設定 */
@@ -42,28 +42,24 @@ void loop() {
   // タクトスイッチの状態を読み込む
   int switch_state = digitalRead(switchPin);
   // スイッチの状態が変化していない時
-  if (switch_state == previous_switch_state) {
-    // 何もしない
-    return;
+  if (switch_state != previous_switch_state) {
+    // 設定した待ち時間以上経過している場合
+    unsigned long period_time = millis() - last_switch_time;
+    if (period_time > switchDebounceTime) {
+      // スイッチが押された時
+      if (switch_state == LOW) {
+        // モーターを100%のスピードで回転
+        setSpeed(100);
+      }
+      // スイッチが押されていない時
+      else {
+        // モーターを停止
+        setSpeed(0);
+      }
+    }
+    // 最後にタクトスイッチが押された時間を更新
+    last_switch_time = millis();
   }
-  // 設定した待ち時間以上経過している場合
-  unsigned long period_time = milliseconds() - last_switch_time;
-  if (period_time <= switchDebounceTime) {
-    // 何もしない
-    return;
-  }
-  // スイッチが押された時
-  if (switch_state == LOW) {
-    // モーターを100%のスピードで回転
-    setSpeed(100);
-  }
-  // スイッチが押されていない時
-  else {
-    // モーターを停止
-    setSpeed(0);
-  }
-  // 最後にタクトスイッチが押された時間を更新
-  last_switch_time = milliseconds();
   // 以前のスイッチの状態を更新
   previous_switch_state = switch_state;
 }
@@ -101,7 +97,7 @@ void setSpeed(int speed_rate) {
   // モーターの状態を切り替える
   switchMotor(speed_rate);
   // speed_rateを0~100から0~255に変換
-  int mortor_speed = map(abs(speed_rate), 0, 100, 0, 255);
+  int motor_speed = map(abs(speed_rate), 0, 100, 0, 255);
   /* モーターのスピードを設定 */
   // enablePinにmotor_speedを設定
   analogWrite(enablePin, motor_speed);
